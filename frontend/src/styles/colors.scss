@@ -1,0 +1,37 @@
+// 🎯 Brand Colors
+$primary: #1B4965;       // Deep navy blue – main brand color
+$secondary: #62B6CB;     // Soft teal – secondary actions
+$accent: #CAE9FF;        // Light blue – highlights & accents
+
+// 🖼 Backgrounds
+$background: #F7F9FC;    // Light grayish white – default background
+$background-alt: #FFFFFF; // Pure white – cards, panels
+$background-dark: #0D1B2A; // Very dark navy – footer or dark sections
+
+// ✍️ Text Colors
+$text-primary: #212529;  // Dark gray – main text
+$text-secondary: #495057; // Medium gray – secondary text
+$text-inverse: #FFFFFF;  // White – text on dark backgrounds
+
+// 🛠 Borders & Dividers
+$border: #DEE2E6;        // Light gray – borders & dividers
+$border-dark: #ADB5BD;   // Medium gray – less subtle borders
+
+// ✅ Semantic Colors
+$success: #2ECC71;       // Green – success states
+$warning: #F39C12;       // Amber – warnings
+$error: #E74C3C;         // Red – errors
+$info: #3498DB;          // Blue – info messages
+
+// 🌈 Hover / Active States
+$primary-hover: darken($primary, 5%);
+$secondary-hover: darken($secondary, 5%);
+$accent-hover: darken($accent, 5%);
+$error-hover: darken($error, 5%);
+
+// 🌙 Shadows
+$shadow-light: rgba(0, 0, 0, 0.05);
+$shadow-medium: rgba(0, 0, 0, 0.1);
+$shadow-dark: rgba(0, 0, 0, 0.2);
+
+

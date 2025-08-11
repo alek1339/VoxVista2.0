@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+
 import User from '../models/User'; // Adjust the path as needed
 
 const router = express.Router();
@@ -16,6 +18,7 @@ router.get('/', async (req, res) => {
 
 // GET user by ID
 router.get('/:id', async (req, res) => {
+  console.log(req.params.id);
   try {
     const user = await User.findById(req.params.id).select('-password');
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -27,29 +30,24 @@ router.get('/:id', async (req, res) => {
 
 // POST create new user (registration)
 router.post('/register', async (req, res) => {
-  const { email, password, firstName, lastName, nativeLanguage, learningLanguage } = req.body;
-
+  console.log(req.body);
   try {
-    // Check if user exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'Email already registered' });
+    const { email, password, firstName, lastName, nativeLanguage } = req.body;
 
-    const newUser = new User({
-      email,
-      password, // You should hash the password before saving
-      firstName,
-      lastName,
-      nativeLanguage,
-      learningLanguage,
-    });
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Email already in use' });
 
-    await newUser.save();
+    const user = new User({ email, password, firstName, lastName, nativeLanguage });
+    await user.save();
 
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Server Error' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
+
+    res.status(201).json({ token, user: { id: user._id, email, firstName, lastName } });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
   }
 });
+
 
 // POST login (simplified)
 router.post('/login', async (req, res) => {

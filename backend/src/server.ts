@@ -10,19 +10,26 @@ import userProgressRoutes from './routes/userProgress';
 dotenv.config();
 const app = express();
 
-app.use(cors());
+// Configure CORS to allow requests from your frontend
+// Enable CORS
+console.log('CLIENT_URL', process.env.CLIENT_URL);
+app.use(cors({
+  origin: 'http://localhost:3000',  // explicitly your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true, // if you want cookies/auth headers; remove if unused
+}));
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/exercises", exerciseRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/user-progress", userProgressRoutes);
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Backend is running' });
-});
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 mongoose.connect(process.env.MONGO_URI as string)
   .then(() => {
     console.log('✅ MongoDB connected');

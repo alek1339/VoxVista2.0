@@ -1,0 +1,16 @@
+@import 'styles/colors.scss';
+
+.authCard {
+  max-width: 400px;
+  margin: 4rem auto;
+  background-color: $background;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  margin-bottom: 1.5rem;
+  color: $primary; /* Define in variables or replace with color code */
+  text-align: center;
+}

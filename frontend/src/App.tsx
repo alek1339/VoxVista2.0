@@ -1,30 +1,28 @@
 import React, {useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Register from 'pages/Registratier';
 
 function App() {
   useEffect(() => {
     fetch('/api/health')
-      .then(res => res.json())
-      .then(data => console.log(data));
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(err => {
+      console.error('Fetch or JSON parse error:', err);
+    });
   }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      test
+     <Register />
     </div>
   );
 }
